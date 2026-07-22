@@ -1,11 +1,21 @@
 ; Inno Setup szkript az IP Changer telepítőjéhez.
-; Fordítás: Inno Setup 6 (ISCC.exe). A telepítő a "publish" mappa tartalmát
+; Fordítás: Inno Setup 6 (ISCC.exe). A telepítő a publish-mappa tartalmát
 ; csomagolja, amelyet előbb a `dotnet publish` hoz létre (lásd docs/PACKAGING.md).
 ;
-; A verzió felülírható a parancssorból:  ISCC.exe /DMyAppVersion=1.2.3 IpChanger.iss
+; --- Ha NEM a repó installer/ mappájából fordítasz, itt állítsd be az útvonalakat ---
+;  PublishDir : a `dotnet publish` kimeneti mappája (ebből lesz a telepítő tartalma)
+;  IconFile   : a telepítő exe ikonja (elhagyható)
+; Ezek felülírhatók a parancssorból is, pl.:
+;  ISCC.exe /DPublishDir="C:\...\IPChanger" /DMyAppVersion=1.2.3 IpChanger.iss
 
 #ifndef MyAppVersion
   #define MyAppVersion "1.0.0"
+#endif
+#ifndef PublishDir
+  #define PublishDir "..\publish"
+#endif
+#ifndef IconFile
+  #define IconFile "..\src\IpChanger\Assets\app.ico"
 #endif
 
 #define MyAppName "IP Changer"
@@ -27,7 +37,11 @@ DisableProgramGroupPage=yes
 UninstallDisplayIcon={app}\{#MyAppExeName}
 OutputDir=..\dist
 OutputBaseFilename=IpChanger-Setup-{#MyAppVersion}
-SetupIconFile=..\src\IpChanger\Assets\app.ico
+; Csak akkor állítjuk be a telepítő ikonját, ha a fájl valóban létezik –
+; így hiányzó ikon esetén a fordítás nem szakad meg (a beépített ikont használja).
+#if FileExists(IconFile)
+SetupIconFile={#IconFile}
+#endif
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
@@ -45,8 +59,9 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-; A teljes publish-mappa tartalma (self-contained build – nincs külön .NET runtime igény).
-Source: "..\publish\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion
+; A teljes publish-mappa tartalma. Self-contained build esetén nincs külön .NET
+; runtime igény a cél-gépen; framework-dependent build esetén kell a .NET 8 Desktop Runtime.
+Source: "{#PublishDir}\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

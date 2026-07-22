@@ -57,6 +57,21 @@ dotnet publish src/IpChanger/IpChanger.csproj -c Release -r win-x64 `
 
 A kész telepítő a `dist\` mappába kerül.
 
+> **Más mappaszerkezet?** A `.iss` alapból a repó elrendezését feltételezi
+> (`installer/` a `.iss`-nek, `..\publish` a build, `..\src\...\app.ico` az ikon).
+> Ha máshonnan fordítasz (pl. az Inno Setup Compiler grafikus felületén, a publish
+> egy tetszőleges mappában), az útvonalak felülírhatók a szkript tetején lévő
+> `#define`-okkal, vagy a parancssorból:
+>
+> ```powershell
+> ISCC.exe /DPublishDir="C:\Users\Én\Desktop\IPChanger" ^
+>          /DIconFile="C:\Users\Én\Desktop\app.ico" ^
+>          /DMyAppVersion=1.0.0 IpChanger.iss
+> ```
+>
+> Ha az ikonfájl nincs meg, a fordítás **nem szakad meg** – a telepítő a beépített
+> ikont használja (az alkalmazás saját ikonja az `IpChanger.exe`-ben marad).
+
 ## Amit a telepítő csinál
 
 - A `C:\Program Files\IP Changer` mappába telepít (emelt jogot kér, mert az
