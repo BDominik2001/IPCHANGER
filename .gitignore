@@ -1,0 +1,19 @@
+# .NET build kimenetek
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.DotSettings.user
+
+# Egyéb
+*.log
