@@ -35,6 +35,16 @@ public sealed class DialogService : IDialogService
         return window.ShowDialog() == true;
     }
 
+    public bool ShowExportSelection(ExportSelectionViewModel viewModel)
+    {
+        var window = new ExportSelectionWindow
+        {
+            DataContext = viewModel,
+            Owner = OwnerWindow,
+        };
+        return window.ShowDialog() == true;
+    }
+
     public void ShowAbout()
     {
         var window = new AboutWindow

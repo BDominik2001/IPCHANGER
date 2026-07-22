@@ -328,6 +328,15 @@ public sealed class MainViewModel : ObservableObject
         if (Presets.Count == 0)
             return;
 
+        // Választó ablak: a felhasználó eldöntheti, mely preseteket exportálja.
+        var selection = new ExportSelectionViewModel(Presets, _loc);
+        if (!_dialogs.ShowExportSelection(selection))
+            return; // megszakítva
+
+        var selected = selection.GetSelectedPresets();
+        if (selected.Count == 0)
+            return; // az Export gomb amúgy sem aktív kijelölés nélkül
+
         var path = _dialogs.ShowSaveFileDialog(
             _loc.Get("L.File.ExportFilter"),
             _loc.Get("L.File.ExportTitle"),
@@ -337,8 +346,8 @@ public sealed class MainViewModel : ObservableObject
 
         try
         {
-            _store.Export(Presets, path);
-            SetStatus(_loc.Format("L.Status.Exported", Presets.Count, path), isError: false);
+            _store.Export(selected, path);
+            SetStatus(_loc.Format("L.Status.Exported", selected.Count, path), isError: false);
         }
         catch (Exception ex)
         {

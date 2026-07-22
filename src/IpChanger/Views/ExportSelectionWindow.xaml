@@ -1,0 +1,63 @@
+<Window x:Class="IpChanger.Views.ExportSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource L.Export.Title}"
+        Height="560" Width="460"
+        MinHeight="420" MinWidth="380"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Assets/app.ico"
+        Background="{DynamicResource BackgroundBrush}"
+        FontFamily="Segoe UI">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{DynamicResource L.Export.Title}"
+                   Style="{StaticResource HeaderText}" />
+
+        <!-- Gyorsgomb + kijelölésszám -->
+        <DockPanel Grid.Row="1" Margin="0,12,0,10">
+            <Button DockPanel.Dock="Left" Content="{Binding ToggleAllLabel}"
+                    Command="{Binding ToggleAllCommand}" Padding="12,6" FontSize="12" />
+            <TextBlock DockPanel.Dock="Right" Text="{Binding SelectedText}"
+                       Style="{StaticResource CaptionText}" VerticalAlignment="Center"
+                       HorizontalAlignment="Right" />
+        </DockPanel>
+
+        <!-- Preset lista, elemenkénti kijelöléssel -->
+        <Border Grid.Row="2" Style="{StaticResource Card}" Padding="12">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Items}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{DynamicResource SurfaceAltBrush}" CornerRadius="6"
+                                    Padding="10,8" Margin="0,0,0,6">
+                                <CheckBox IsChecked="{Binding IsSelected}" VerticalContentAlignment="Center">
+                                    <StackPanel Margin="4,0,0,0">
+                                        <TextBlock Text="{Binding Name}" FontFamily="Segoe UI Semibold" FontSize="14" />
+                                        <TextBlock Text="{Binding Summary}" Style="{StaticResource CaptionText}"
+                                                   Margin="0,2,0,0" />
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Gombok -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Content="{DynamicResource L.Export.Cancel}" IsCancel="True"
+                    MinWidth="100" Margin="0,0,10,0" Click="OnCancel" />
+            <Button Content="{DynamicResource L.Export.Confirm}" Style="{StaticResource AccentButton}"
+                    MinWidth="130" IsDefault="True" Click="OnExport"
+                    IsEnabled="{Binding CanExport}" />
+        </StackPanel>
+    </Grid>
+</Window>

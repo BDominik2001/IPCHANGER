@@ -14,6 +14,9 @@ public interface IDialogService
     /// <summary>Megnyitja az importálás-áttekintő ablakot. True, ha a felhasználó az Importálást választotta.</summary>
     bool ShowImportReview(ImportReviewViewModel viewModel);
 
+    /// <summary>Megnyitja az exportálás-választó ablakot. True, ha a felhasználó az Exportálást választotta.</summary>
+    bool ShowExportSelection(ExportSelectionViewModel viewModel);
+
     /// <summary>Fájl megnyitási párbeszéd (importhoz). Null, ha megszakították.</summary>
     string? ShowOpenFileDialog(string filter, string title);
 
