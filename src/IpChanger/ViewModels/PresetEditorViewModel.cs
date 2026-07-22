@@ -10,15 +10,20 @@ namespace IpChanger.ViewModels;
 public sealed class PresetEditorViewModel : ObservableObject
 {
     private readonly IpPreset _draft;
+    private readonly ILocalizationService _loc;
 
-    public PresetEditorViewModel(IpPreset source, bool isNew)
+    public PresetEditorViewModel(IpPreset source, bool isNew, ILocalizationService loc)
     {
         _draft = source.Clone();
-        Title = isNew ? "Új preset" : "Preset szerkesztése";
+        _loc = loc;
+        Title = loc.Get(isNew ? "L.Editor.NewTitle" : "L.Editor.EditTitle");
     }
 
     /// <summary>Az ablak címe.</summary>
     public string Title { get; }
+
+    /// <summary>A validációs hibaüzenet ablak címe.</summary>
+    public string InvalidTitle => _loc.Get("L.Editor.InvalidTitle");
 
     public string Name
     {
@@ -90,8 +95,8 @@ public sealed class PresetEditorViewModel : ObservableObject
         set { _draft.Notes = value; OnPropertyChanged(); }
     }
 
-    /// <summary>Validálja a piszkozatot. Hibaüzenet vagy null (ha érvényes).</summary>
-    public string? Validate() => PresetValidator.Validate(_draft);
+    /// <summary>Validálja a piszkozatot. Lokalizált hibaüzenet vagy null (ha érvényes).</summary>
+    public string? Validate() => PresetValidator.Validate(_draft, _loc);
 
     /// <summary>A szerkesztés eredménye: a validált piszkozat.</summary>
     public IpPreset GetResult() => _draft;

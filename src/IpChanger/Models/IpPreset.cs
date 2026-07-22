@@ -88,11 +88,12 @@ public sealed class IpPreset : INotifyPropertyChanged
         set => Set(ref _notes, value);
     }
 
-    /// <summary>Rövid, listában megjeleníthető összefoglaló a beállításról.</summary>
+    /// <summary>Rövid, listában megjeleníthető összefoglaló (nyelvfüggetlen: az IP címet,
+    /// DHCP esetén "DHCP"-t, hiányzó statikus cím esetén "—"-t mutat).</summary>
     [JsonIgnore]
     public string Summary => UseDhcp
-        ? "DHCP (automatikus)"
-        : string.IsNullOrWhiteSpace(IpAddress) ? "Statikus (nincs cím megadva)" : IpAddress;
+        ? "DHCP"
+        : string.IsNullOrWhiteSpace(IpAddress) ? "—" : IpAddress;
 
     /// <summary>Mély másolat készítése (szerkesztés közbeni piszkozathoz).</summary>
     public IpPreset Clone() => new()

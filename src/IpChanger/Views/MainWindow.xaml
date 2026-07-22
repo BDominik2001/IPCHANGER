@@ -20,21 +20,29 @@
         <Grid Grid.Row="0" Margin="0,0,0,16">
             <StackPanel>
                 <TextBlock Text="IP Changer" Style="{StaticResource HeaderText}" FontSize="22" />
-                <TextBlock Text="Hálózati IP presetek kezelése és alkalmazása"
+                <TextBlock Text="{DynamicResource L.Subtitle}"
                            Style="{StaticResource CaptionText}" Margin="0,2,0,0" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <!-- Nyelvválasztó (magyar / angol) -->
+                <ComboBox ItemsSource="{Binding Languages}"
+                          SelectedItem="{Binding SelectedLanguage}"
+                          DisplayMemberPath="Display"
+                          Width="120" Height="32" Margin="0,0,10,0"
+                          VerticalAlignment="Center"
+                          ToolTip="{DynamicResource L.Language.Tooltip}" />
+
                 <!-- Téma-váltó (sötét/világos) -->
                 <Button Content="{Binding ThemeToggleLabel}" Command="{Binding ToggleThemeCommand}"
                         Padding="12,6" FontSize="12" Margin="0,0,10,0"
-                        ToolTip="Váltás sötét és világos téma között" />
+                        ToolTip="{DynamicResource L.Theme.Tooltip}" />
 
                 <!-- Rendszergazda jelvény -->
                 <Border Style="{StaticResource Chip}">
                     <StackPanel Orientation="Horizontal">
                         <Ellipse Width="8" Height="8" Fill="{DynamicResource SuccessBrush}"
                                  VerticalAlignment="Center" Margin="0,0,8,0" />
-                        <TextBlock Text="Rendszergazdai módban fut" Style="{StaticResource CaptionText}" />
+                        <TextBlock Text="{DynamicResource L.AdminBadge}" Style="{StaticResource CaptionText}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -58,18 +66,18 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Presetek" Style="{StaticResource HeaderText}"
+                    <TextBlock Grid.Row="0" Text="{DynamicResource L.Presets}" Style="{StaticResource HeaderText}"
                                FontSize="15" Margin="2,0,0,10" />
 
                     <!-- Eszköztár -->
                     <WrapPanel Grid.Row="1" Margin="0,0,0,12">
-                        <Button Content="＋ Új" Command="{Binding AddPresetCommand}" Margin="0,0,6,6" />
-                        <Button Content="Szerkesztés" Command="{Binding EditPresetCommand}" Margin="0,0,6,6" />
-                        <Button Content="Duplikálás" Command="{Binding DuplicatePresetCommand}" Margin="0,0,6,6" />
-                        <Button Content="Törlés" Style="{StaticResource DangerButton}"
+                        <Button Content="{DynamicResource L.New}" Command="{Binding AddPresetCommand}" Margin="0,0,6,6" />
+                        <Button Content="{DynamicResource L.Edit}" Command="{Binding EditPresetCommand}" Margin="0,0,6,6" />
+                        <Button Content="{DynamicResource L.Duplicate}" Command="{Binding DuplicatePresetCommand}" Margin="0,0,6,6" />
+                        <Button Content="{DynamicResource L.Delete}" Style="{StaticResource DangerButton}"
                                 Command="{Binding DeletePresetCommand}" Margin="0,0,6,6" />
-                        <Button Content="Import" Command="{Binding ImportCommand}" Margin="0,0,6,6" />
-                        <Button Content="Export" Command="{Binding ExportCommand}" Margin="0,0,0,6" />
+                        <Button Content="{DynamicResource L.Import}" Command="{Binding ImportCommand}" Margin="0,0,6,6" />
+                        <Button Content="{DynamicResource L.Export}" Command="{Binding ExportCommand}" Margin="0,0,0,6" />
                     </WrapPanel>
 
                     <!-- Lista -->
@@ -97,7 +105,7 @@
 
                     <TextBlock Grid.Row="3" Margin="2,10,0,0" Style="{StaticResource CaptionText}"
                                TextWrapping="Wrap">
-                        <Run Text="Tárolás:" />
+                        <Run Text="{DynamicResource L.Storage}" />
                         <Run Text="{Binding StorePath, Mode=OneWay}" />
                     </TextBlock>
                 </Grid>
@@ -113,7 +121,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Kiválasztott preset"
+                    <TextBlock Grid.Row="0" Text="{DynamicResource L.SelectedPreset}"
                                Style="{StaticResource HeaderText}" FontSize="15" Margin="0,0,0,12" />
 
                     <!-- Részletek -->
@@ -125,35 +133,35 @@
 
                                 <UniformGrid Columns="2" Margin="0,14,0,0">
                                     <StackPanel Margin="0,0,8,10">
-                                        <TextBlock Text="Mód" Style="{StaticResource CaptionText}" />
+                                        <TextBlock Text="{DynamicResource L.IpAddress}" Style="{StaticResource CaptionText}" />
                                         <TextBlock Text="{Binding SelectedPreset.Summary}" />
                                     </StackPanel>
                                     <StackPanel Margin="0,0,0,10">
-                                        <TextBlock Text="Alhálózati maszk" Style="{StaticResource CaptionText}" />
+                                        <TextBlock Text="{DynamicResource L.SubnetMask}" Style="{StaticResource CaptionText}" />
                                         <TextBlock Text="{Binding SelectedPreset.SubnetMask}" />
                                     </StackPanel>
                                     <StackPanel Margin="0,0,8,10">
-                                        <TextBlock Text="Átjáró" Style="{StaticResource CaptionText}" />
+                                        <TextBlock Text="{DynamicResource L.Gateway}" Style="{StaticResource CaptionText}" />
                                         <TextBlock Text="{Binding SelectedPreset.Gateway}" />
                                     </StackPanel>
                                     <StackPanel Margin="0,0,0,10">
-                                        <TextBlock Text="Elsődleges DNS" Style="{StaticResource CaptionText}" />
+                                        <TextBlock Text="{DynamicResource L.PreferredDns}" Style="{StaticResource CaptionText}" />
                                         <TextBlock Text="{Binding SelectedPreset.PreferredDns}" />
                                     </StackPanel>
                                     <StackPanel Margin="0,0,8,10">
-                                        <TextBlock Text="Másodlagos DNS" Style="{StaticResource CaptionText}" />
+                                        <TextBlock Text="{DynamicResource L.AlternateDns}" Style="{StaticResource CaptionText}" />
                                         <TextBlock Text="{Binding SelectedPreset.AlternateDns}" />
                                     </StackPanel>
                                 </UniformGrid>
 
-                                <TextBlock Text="Megjegyzés" Style="{StaticResource CaptionText}" Margin="0,4,0,2" />
+                                <TextBlock Text="{DynamicResource L.Notes}" Style="{StaticResource CaptionText}" Margin="0,4,0,2" />
                                 <Border Background="{DynamicResource SurfaceAltBrush}" CornerRadius="6" Padding="10,8">
                                     <TextBlock Text="{Binding SelectedPreset.Notes}" TextWrapping="Wrap"
                                                MinHeight="30" />
                                 </Border>
                             </StackPanel>
 
-                            <TextBlock Text="Válassz egy presetet a bal oldali listából."
+                            <TextBlock Text="{DynamicResource L.NoSelection}"
                                        Style="{StaticResource CaptionText}"
                                        Visibility="{Binding SelectedPreset, Converter={x:Static conv:NullToVisibilityConverter.InstanceInverse}}" />
                         </StackPanel>
@@ -162,9 +170,9 @@
                     <!-- Adapter választás -->
                     <StackPanel Grid.Row="2" Margin="0,16,0,0">
                         <DockPanel Margin="0,0,0,4">
-                            <TextBlock Text="Hálózati adapter" Style="{StaticResource CaptionText}"
+                            <TextBlock Text="{DynamicResource L.Adapter}" Style="{StaticResource CaptionText}"
                                        DockPanel.Dock="Left" VerticalAlignment="Center" />
-                            <Button Content="⟳ Frissítés" Command="{Binding RefreshAdaptersCommand}"
+                            <Button Content="{DynamicResource L.Refresh}" Command="{Binding RefreshAdaptersCommand}"
                                     DockPanel.Dock="Right" HorizontalAlignment="Right"
                                     Padding="10,4" FontSize="12" />
                         </DockPanel>
@@ -172,13 +180,13 @@
                                   SelectedItem="{Binding SelectedAdapter}"
                                   DisplayMemberPath="DisplayName" />
                         <TextBlock Style="{StaticResource CaptionText}" Margin="2,6,0,0" TextWrapping="Wrap">
-                            <Run Text="Jelenlegi IP:" />
+                            <Run Text="{DynamicResource L.CurrentIp}" />
                             <Run Text="{Binding SelectedAdapter.CurrentIpv4, Mode=OneWay, TargetNullValue=—}" />
                         </TextBlock>
                     </StackPanel>
 
                     <!-- Alkalmazás gomb -->
-                    <Button Grid.Row="3" Content="Preset alkalmazása"
+                    <Button Grid.Row="3" Content="{DynamicResource L.Apply}"
                             Style="{StaticResource AccentButton}"
                             Command="{Binding ApplyPresetCommand}"
                             HorizontalAlignment="Stretch" Margin="0,16,0,0" />

@@ -7,6 +7,7 @@ namespace IpChanger.Services;
 public sealed class AppSettings
 {
     public AppTheme Theme { get; set; } = AppTheme.Dark;
+    public AppLanguage Language { get; set; } = AppLanguage.Hungarian;
 }
 
 /// <summary>
