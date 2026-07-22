@@ -5,7 +5,7 @@
         MinHeight="560" MinWidth="420"
         WindowStartupLocation="CenterOwner"
         ResizeMode="CanResize"
-        Background="{StaticResource BackgroundBrush}"
+        Background="{DynamicResource BackgroundBrush}"
         FontFamily="Segoe UI">
 
     <Grid Margin="20">

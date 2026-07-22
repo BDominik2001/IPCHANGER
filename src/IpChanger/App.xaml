@@ -4,6 +4,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- A konkrét téma (Dark/Light) futásidőben kerül be a ThemeService-en
+                     keresztül; a stílusok DynamicResource-szal hivatkoznak az ecsetekre. -->
                 <ResourceDictionary Source="Themes/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

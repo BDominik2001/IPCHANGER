@@ -5,14 +5,8 @@
         Title="IP Changer" Height="640" Width="1000"
         MinHeight="520" MinWidth="820"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource BackgroundBrush}"
+        Background="{DynamicResource BackgroundBrush}"
         FontFamily="Segoe UI">
-
-    <Window.Resources>
-        <conv:BoolToBrushConverter x:Key="StatusBrush"
-                                   TrueBrush="{StaticResource DangerBrush}"
-                                   FalseBrush="{StaticResource TextMutedBrush}" />
-    </Window.Resources>
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -28,16 +22,21 @@
                 <TextBlock Text="Hálózati IP presetek kezelése és alkalmazása"
                            Style="{StaticResource CaptionText}" Margin="0,2,0,0" />
             </StackPanel>
-            <Border HorizontalAlignment="Right" VerticalAlignment="Center"
-                    Background="{StaticResource SurfaceBrush}"
-                    BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
-                    CornerRadius="6" Padding="10,5">
-                <StackPanel Orientation="Horizontal">
-                    <Ellipse Width="8" Height="8" Fill="{StaticResource SuccessBrush}"
-                             VerticalAlignment="Center" Margin="0,0,8,0" />
-                    <TextBlock Text="Rendszergazdai módban fut" Style="{StaticResource CaptionText}" />
-                </StackPanel>
-            </Border>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <!-- Téma-váltó (sötét/világos) -->
+                <Button Content="{Binding ThemeToggleLabel}" Command="{Binding ToggleThemeCommand}"
+                        Padding="12,6" FontSize="12" Margin="0,0,10,0"
+                        ToolTip="Váltás sötét és világos téma között" />
+
+                <!-- Rendszergazda jelvény -->
+                <Border Style="{StaticResource Chip}">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="8" Height="8" Fill="{DynamicResource SuccessBrush}"
+                                 VerticalAlignment="Center" Margin="0,0,8,0" />
+                        <TextBlock Text="Rendszergazdai módban fut" Style="{StaticResource CaptionText}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
         </Grid>
 
         <!-- ============ Fő tartalom ============ -->
@@ -147,7 +146,7 @@
                                 </UniformGrid>
 
                                 <TextBlock Text="Megjegyzés" Style="{StaticResource CaptionText}" Margin="0,4,0,2" />
-                                <Border Background="{StaticResource SurfaceAltBrush}" CornerRadius="6" Padding="10,8">
+                                <Border Background="{DynamicResource SurfaceAltBrush}" CornerRadius="6" Padding="10,8">
                                     <TextBlock Text="{Binding SelectedPreset.Notes}" TextWrapping="Wrap"
                                                MinHeight="30" />
                                 </Border>
@@ -188,12 +187,21 @@
 
         <!-- ============ Státuszsor ============ -->
         <Border Grid.Row="2" Margin="0,16,0,0"
-                Background="{StaticResource SurfaceBrush}"
-                BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                Background="{DynamicResource SurfaceBrush}"
+                BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
                 CornerRadius="6" Padding="12,8">
-            <TextBlock Text="{Binding StatusMessage}"
-                       Foreground="{Binding StatusIsError, Converter={StaticResource StatusBrush}}"
-                       TextWrapping="Wrap" />
+            <TextBlock Text="{Binding StatusMessage}" TextWrapping="Wrap">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Setter Property="Foreground" Value="{DynamicResource TextMutedBrush}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding StatusIsError}" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource DangerBrush}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
         </Border>
     </Grid>
 </Window>

@@ -13,21 +13,24 @@ public sealed class MainViewModel : ObservableObject
     private readonly PresetStore _store;
     private readonly NetworkAdapterService _network;
     private readonly IDialogService _dialogs;
+    private readonly IThemeService _theme;
 
     private IpPreset? _selectedPreset;
     private NetworkAdapterInfo? _selectedAdapter;
     private string _statusMessage = "Készen áll.";
     private bool _statusIsError;
 
-    public MainViewModel(PresetStore store, NetworkAdapterService network, IDialogService dialogs)
+    public MainViewModel(PresetStore store, NetworkAdapterService network, IDialogService dialogs, IThemeService theme)
     {
         _store = store;
         _network = network;
         _dialogs = dialogs;
+        _theme = theme;
 
         Presets = new ObservableCollection<IpPreset>(_store.Load());
         Adapters = new ObservableCollection<NetworkAdapterInfo>();
 
+        ToggleThemeCommand = new RelayCommand(ToggleTheme);
         AddPresetCommand = new RelayCommand(AddPreset);
         EditPresetCommand = new RelayCommand(EditPreset, () => SelectedPreset is not null);
         DuplicatePresetCommand = new RelayCommand(DuplicatePreset, () => SelectedPreset is not null);
@@ -78,6 +81,13 @@ public sealed class MainViewModel : ObservableObject
 
     public string StorePath => _store.FilePath;
 
+    /// <summary>Igaz, ha épp sötét téma aktív.</summary>
+    public bool IsDarkTheme => _theme.Current == AppTheme.Dark;
+
+    /// <summary>A téma-váltó gomb felirata (arra a témára utal, amelyikre váltani lehet).</summary>
+    public string ThemeToggleLabel => IsDarkTheme ? "☀  Világos" : "🌙  Sötét";
+
+    public RelayCommand ToggleThemeCommand { get; }
     public RelayCommand AddPresetCommand { get; }
     public RelayCommand EditPresetCommand { get; }
     public RelayCommand DuplicatePresetCommand { get; }
@@ -86,6 +96,13 @@ public sealed class MainViewModel : ObservableObject
     public RelayCommand RefreshAdaptersCommand { get; }
     public RelayCommand ImportCommand { get; }
     public RelayCommand ExportCommand { get; }
+
+    private void ToggleTheme()
+    {
+        _theme.Apply(IsDarkTheme ? AppTheme.Light : AppTheme.Dark);
+        OnPropertyChanged(nameof(IsDarkTheme));
+        OnPropertyChanged(nameof(ThemeToggleLabel));
+    }
 
     private void AddPreset()
     {
@@ -109,22 +126,11 @@ public sealed class MainViewModel : ObservableObject
         if (!_dialogs.ShowPresetEditor(editorVm))
             return;
 
-        // A módosításokat visszaírjuk az eredeti példányba.
-        var edited = editorVm.GetResult();
+        // A módosításokat visszaírjuk az eredeti példányba. Mivel az IpPreset
+        // observable, a setterek PropertyChanged eseményei automatikusan frissítik
+        // a listakártyát és a részletező panelt is.
         var current = SelectedPreset;
-        var index = Presets.IndexOf(current);
-        current.CopyValuesFrom(edited);
-
-        // Az IpPreset nem observable, ezért a kötések frissítéséhez kényszerítjük az
-        // újraértékelést: a listaelemet önmagára cseréljük (ListBox kártya), a
-        // SelectedPreset kötést pedig null-on át állítjuk vissza (részletező panel).
-        _selectedPreset = null;
-        OnPropertyChanged(nameof(SelectedPreset));
-        if (index >= 0)
-            Presets[index] = current;
-        _selectedPreset = current;
-        OnPropertyChanged(nameof(SelectedPreset));
-        RaiseItemCommands();
+        current.CopyValuesFrom(editorVm.GetResult());
 
         PersistPresets();
         SetStatus($"Preset frissítve: {current.Name}", isError: false);
