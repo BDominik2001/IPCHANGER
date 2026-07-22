@@ -101,4 +101,50 @@
 
 {0}</sys:String>
 
+    <!-- Header buttons -->
+    <sys:String x:Key="L.Header.Manual">Help</sys:String>
+    <sys:String x:Key="L.Header.About">About</sys:String>
+
+    <!-- About window -->
+    <sys:String x:Key="L.About.Title">About</sys:String>
+    <sys:String x:Key="L.About.Subtitle">Manage and apply network IP presets</sys:String>
+    <sys:String x:Key="L.About.VersionLabel">Version</sys:String>
+    <sys:String x:Key="L.About.CreatorLabel">Author</sys:String>
+    <sys:String x:Key="L.About.OpenGitHub">Open GitHub</sys:String>
+    <sys:String x:Key="L.About.Close">Close</sys:String>
+
+    <!-- User manual -->
+    <sys:String x:Key="L.Manual.Title">User guide</sys:String>
+    <sys:String x:Key="L.Manual.Intro">With IP Changer you can save your frequently used IP configurations (presets) and apply them to the selected network adapter with a single click. The app requests administrator rights at startup because changing the IP requires them.</sys:String>
+
+    <sys:String x:Key="L.Manual.S1Head">1. Creating and editing a preset</sys:String>
+    <sys:String x:Key="L.Manual.S1Body">In the toolbar on the left:
+• “＋ New” – create a new preset.
+• “Edit” – modify the selected preset.
+• “Duplicate” – make a copy of an existing preset.
+• “Delete” – remove the selected preset (with confirmation).
+
+In the editor you can enter a static IP address, subnet mask, gateway and DNS, or tick “Obtain IP address automatically (DHCP)”. You can also add notes to any preset.</sys:String>
+
+    <sys:String x:Key="L.Manual.S2Head">2. Applying a preset to an adapter</sys:String>
+    <sys:String x:Key="L.Manual.S2Body">1. On the right, pick the adapter you want to change from the “Network adapter” drop-down (use “⟳ Refresh” to reload the list).
+2. Select the desired preset in the list on the left.
+3. Click “Apply preset” and confirm the operation.
+
+The status bar shows the result and the adapter’s current IP address is refreshed.</sys:String>
+
+    <sys:String x:Key="L.Manual.S3Head">3. Importing and exporting presets</sys:String>
+    <sys:String x:Key="L.Manual.S3Body">• “Export” – save all presets to a JSON file (for backup or moving to another machine).
+• “Import” – load presets from a previously exported JSON file (imported presets are added to the existing ones).</sys:String>
+
+    <sys:String x:Key="L.Manual.S4Head">4. Theme and language</sys:String>
+    <sys:String x:Key="L.Manual.S4Body">In the header you can switch between dark and light theme, and between Hungarian and English. Your choices are remembered until the next launch.</sys:String>
+
+    <sys:String x:Key="L.Manual.S5Head">Good to know</sys:String>
+    <sys:String x:Key="L.Manual.S5Body">• Presets are saved automatically to your user AppData folder (the storage path is shown in the bottom-left corner).
+• Invalid IP formats are flagged before saving.
+• If an operation fails, the status bar and a message box inform you about the error.</sys:String>
+
+    <sys:String x:Key="L.Manual.Close">Close</sys:String>
+
 </ResourceDictionary>

@@ -22,4 +22,10 @@ public interface IDialogService
 
     /// <summary>Információs vagy hibaüzenet megjelenítése.</summary>
     void ShowMessage(string message, string title, bool isError = false);
+
+    /// <summary>A Névjegy ablak megjelenítése.</summary>
+    void ShowAbout();
+
+    /// <summary>A használati útmutató ablak megjelenítése.</summary>
+    void ShowManual();
 }

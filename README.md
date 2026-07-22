@@ -17,8 +17,10 @@ konfigurációját.
 - ⚡ **Egy kattintásos alkalmazás** – a `netsh` segítségével állítja be az IP-t.
 - 🛡️ **Automatikus rendszergazdai jog** – indításkor UAC-kérés (a manifest miatt),
   mivel az IP módosítása emelt jogot igényel.
-- 🎨 **Modern, sötét/világos téma** – futásidőben váltható, egyedi WPF téma, külső csomag nélkül.
+- 🎨 **Zöld színvilág, sötét/világos téma** – futásidőben váltható, egyedi WPF téma, külső csomag nélkül.
 - 🌐 **Kétnyelvű felület** – magyar és angol, futásidőben váltható; a választás megjegyződik.
+- ❔ **Beépített használati útmutató** – lépésről lépésre, kétnyelvű.
+- ⓘ **Névjegy ablak** – készítő, verzió és egy gomb a GitHub-oldal megnyitásához.
 
 ## Követelmények
 

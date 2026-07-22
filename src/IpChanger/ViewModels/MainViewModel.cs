@@ -45,6 +45,8 @@ public sealed class MainViewModel : ObservableObject
         _selectedLanguage = Languages.FirstOrDefault(l => l.Value == loc.Current) ?? Languages[0];
 
         ToggleThemeCommand = new RelayCommand(ToggleTheme);
+        ShowAboutCommand = new RelayCommand(() => _dialogs.ShowAbout());
+        ShowManualCommand = new RelayCommand(() => _dialogs.ShowManual());
         AddPresetCommand = new RelayCommand(AddPreset);
         EditPresetCommand = new RelayCommand(EditPreset, () => SelectedPreset is not null);
         DuplicatePresetCommand = new RelayCommand(DuplicatePreset, () => SelectedPreset is not null);
@@ -124,6 +126,8 @@ public sealed class MainViewModel : ObservableObject
     }
 
     public RelayCommand ToggleThemeCommand { get; }
+    public RelayCommand ShowAboutCommand { get; }
+    public RelayCommand ShowManualCommand { get; }
     public RelayCommand AddPresetCommand { get; }
     public RelayCommand EditPresetCommand { get; }
     public RelayCommand DuplicatePresetCommand { get; }

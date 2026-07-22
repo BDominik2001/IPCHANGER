@@ -10,15 +10,17 @@
     <AssemblyName>IpChanger</AssemblyName>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Product>IP Changer</Product>
     <Description>Windows alkalmazás IP presetek kezelésére és hálózati adapter IP címének módosítására.</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- Az .ico Resource-ként is beágyazódik, hogy az ablakok címsorában (Window.Icon)
-         futásidőben betölthető legyen. Az ApplicationIcon az exe Win32 ikonját adja. -->
+         futásidőben betölthető legyen. Az ApplicationIcon az exe Win32 ikonját adja.
+         A logo.png a fejléc bal felső sarkában és a Névjegy ablakban jelenik meg. -->
     <Resource Include="Assets\app.ico" />
+    <Resource Include="Assets\logo.png" />
   </ItemGroup>
 
 </Project>

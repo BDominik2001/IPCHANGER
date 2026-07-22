@@ -101,4 +101,50 @@
 
 {0}</sys:String>
 
+    <!-- Fejléc gombok -->
+    <sys:String x:Key="L.Header.Manual">Súgó</sys:String>
+    <sys:String x:Key="L.Header.About">Névjegy</sys:String>
+
+    <!-- Névjegy ablak -->
+    <sys:String x:Key="L.About.Title">Névjegy</sys:String>
+    <sys:String x:Key="L.About.Subtitle">Hálózati IP presetek kezelése és alkalmazása</sys:String>
+    <sys:String x:Key="L.About.VersionLabel">Verzió</sys:String>
+    <sys:String x:Key="L.About.CreatorLabel">Készítő</sys:String>
+    <sys:String x:Key="L.About.OpenGitHub">GitHub megnyitása</sys:String>
+    <sys:String x:Key="L.About.Close">Bezárás</sys:String>
+
+    <!-- Használati útmutató (manual) -->
+    <sys:String x:Key="L.Manual.Title">Használati útmutató</sys:String>
+    <sys:String x:Key="L.Manual.Intro">Az IP Changerrel elmentheted a gyakran használt IP-beállításokat (preseteket), és egyetlen kattintással átállíthatod velük a kiválasztott hálózati adapter IP-címét. Az alkalmazás rendszergazdai jogot kér indításkor, mert az IP módosításához erre szükség van.</sys:String>
+
+    <sys:String x:Key="L.Manual.S1Head">1. Preset létrehozása és szerkesztése</sys:String>
+    <sys:String x:Key="L.Manual.S1Body">A bal oldali eszköztárban:
+• „＋ Új” – új preset létrehozása.
+• „Szerkesztés” – a kijelölt preset módosítása.
+• „Duplikálás” – másolat készítése egy meglévő presetről.
+• „Törlés” – a kijelölt preset eltávolítása (megerősítéssel).
+
+A szerkesztőben megadhatsz statikus IP-címet, alhálózati maszkot, átjárót és DNS-t, vagy bejelölheted az „IP cím automatikus lekérése (DHCP)” opciót. Minden presethez fűzhetsz megjegyzést is.</sys:String>
+
+    <sys:String x:Key="L.Manual.S2Head">2. Preset alkalmazása egy adapterre</sys:String>
+    <sys:String x:Key="L.Manual.S2Body">1. A jobb oldalon a „Hálózati adapter” legördülőből válaszd ki a módosítani kívánt adaptert (a „⟳ Frissítés” gombbal frissítheted a listát).
+2. A bal oldali listában jelöld ki a kívánt presetet.
+3. Kattints a „Preset alkalmazása” gombra, és erősítsd meg a műveletet.
+
+Az állapotsorban látod az eredményt, és az adapter aktuális IP-címe frissül.</sys:String>
+
+    <sys:String x:Key="L.Manual.S3Head">3. Presetek importálása és exportálása</sys:String>
+    <sys:String x:Key="L.Manual.S3Body">• „Export” – az összes preset mentése egy JSON-fájlba (pl. mentéshez vagy másik gépre átvitelhez).
+• „Import” – presetek betöltése egy korábban exportált JSON-fájlból (az importált presetek a meglévők mellé kerülnek).</sys:String>
+
+    <sys:String x:Key="L.Manual.S4Head">4. Téma és nyelv</sys:String>
+    <sys:String x:Key="L.Manual.S4Body">A fejlécben válthatsz sötét és világos téma között, valamint magyar és angol nyelv között. A beállításaid megjegyződnek a következő indításig.</sys:String>
+
+    <sys:String x:Key="L.Manual.S5Head">Jó tudni</sys:String>
+    <sys:String x:Key="L.Manual.S5Body">• A presetek automatikusan mentődnek a felhasználói AppData mappába (a tárolás helye a bal alsó sarokban látható).
+• A hibás IP-formátumokat az alkalmazás mentés előtt jelzi.
+• Ha egy módosítás nem sikerül, az állapotsor és egy üzenetablak tájékoztat a hibáról.</sys:String>
+
+    <sys:String x:Key="L.Manual.Close">Bezárás</sys:String>
+
 </ResourceDictionary>
