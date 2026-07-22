@@ -1,0 +1,104 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Header / general -->
+    <sys:String x:Key="L.Subtitle">Manage and apply network IP presets</sys:String>
+    <sys:String x:Key="L.AdminBadge">Running as administrator</sys:String>
+    <sys:String x:Key="L.Theme.Light">☀  Light</sys:String>
+    <sys:String x:Key="L.Theme.Dark">🌙  Dark</sys:String>
+    <sys:String x:Key="L.Theme.Tooltip">Switch between dark and light theme</sys:String>
+    <sys:String x:Key="L.Language.Tooltip">Select language</sys:String>
+
+    <!-- Presets panel -->
+    <sys:String x:Key="L.Presets">Presets</sys:String>
+    <sys:String x:Key="L.New">＋ New</sys:String>
+    <sys:String x:Key="L.Edit">Edit</sys:String>
+    <sys:String x:Key="L.Duplicate">Duplicate</sys:String>
+    <sys:String x:Key="L.Delete">Delete</sys:String>
+    <sys:String x:Key="L.Import">Import</sys:String>
+    <sys:String x:Key="L.Export">Export</sys:String>
+    <sys:String x:Key="L.Storage">Storage:</sys:String>
+
+    <!-- Details panel -->
+    <sys:String x:Key="L.SelectedPreset">Selected preset</sys:String>
+    <sys:String x:Key="L.IpAddress">IP address</sys:String>
+    <sys:String x:Key="L.SubnetMask">Subnet mask</sys:String>
+    <sys:String x:Key="L.Gateway">Gateway</sys:String>
+    <sys:String x:Key="L.PreferredDns">Preferred DNS</sys:String>
+    <sys:String x:Key="L.AlternateDns">Alternate DNS</sys:String>
+    <sys:String x:Key="L.Notes">Notes</sys:String>
+    <sys:String x:Key="L.NoSelection">Select a preset from the list on the left.</sys:String>
+    <sys:String x:Key="L.Adapter">Network adapter</sys:String>
+    <sys:String x:Key="L.Refresh">⟳ Refresh</sys:String>
+    <sys:String x:Key="L.CurrentIp">Current IP:</sys:String>
+    <sys:String x:Key="L.Apply">Apply preset</sys:String>
+
+    <!-- Editor window -->
+    <sys:String x:Key="L.Editor.NewTitle">New preset</sys:String>
+    <sys:String x:Key="L.Editor.EditTitle">Edit preset</sys:String>
+    <sys:String x:Key="L.Editor.Name">Preset name</sys:String>
+    <sys:String x:Key="L.Editor.Dhcp">Obtain IP address automatically (DHCP)</sys:String>
+    <sys:String x:Key="L.Editor.Ip">IP address</sys:String>
+    <sys:String x:Key="L.Editor.Mask">Subnet mask</sys:String>
+    <sys:String x:Key="L.Editor.Gateway">Default gateway (optional)</sys:String>
+    <sys:String x:Key="L.Editor.DnsDhcp">Obtain DNS automatically (DHCP)</sys:String>
+    <sys:String x:Key="L.Editor.PrefDns">Preferred DNS (optional)</sys:String>
+    <sys:String x:Key="L.Editor.AltDns">Alternate DNS (optional)</sys:String>
+    <sys:String x:Key="L.Editor.Notes">Notes</sys:String>
+    <sys:String x:Key="L.Editor.Cancel">Cancel</sys:String>
+    <sys:String x:Key="L.Editor.Save">Save</sys:String>
+    <sys:String x:Key="L.Editor.InvalidTitle">Invalid data</sys:String>
+
+    <!-- Status messages -->
+    <sys:String x:Key="L.Status.Ready">Ready.</sys:String>
+    <sys:String x:Key="L.Status.Created">Preset created: {0}</sys:String>
+    <sys:String x:Key="L.Status.Updated">Preset updated: {0}</sys:String>
+    <sys:String x:Key="L.Status.Duplicated">Preset duplicated: {0}</sys:String>
+    <sys:String x:Key="L.Status.Deleted">Preset deleted: {0}</sys:String>
+    <sys:String x:Key="L.Status.Imported">{0} preset(s) imported.</sys:String>
+    <sys:String x:Key="L.Status.ImportEmpty">The file contained no presets.</sys:String>
+    <sys:String x:Key="L.Status.ImportFailed">Import failed: {0}</sys:String>
+    <sys:String x:Key="L.Status.Exported">{0} preset(s) exported to: {1}</sys:String>
+    <sys:String x:Key="L.Status.ExportFailed">Export failed: {0}</sys:String>
+    <sys:String x:Key="L.Status.SaveFailed">Saving presets failed: {0}</sys:String>
+    <sys:String x:Key="L.Suffix.Copy"> (copy)</sys:String>
+
+    <!-- Dialogs -->
+    <sys:String x:Key="L.Dialog.DeleteConfirm">Are you sure you want to delete the preset “{0}”?</sys:String>
+    <sys:String x:Key="L.Dialog.DeleteTitle">Confirm delete</sys:String>
+    <sys:String x:Key="L.Dialog.ApplyConfirm">Apply preset “{0}” to adapter “{1}”?</sys:String>
+    <sys:String x:Key="L.Dialog.ApplyTitle">Confirm apply</sys:String>
+    <sys:String x:Key="L.Dialog.ApplyFailedTitle">Apply failed</sys:String>
+    <sys:String x:Key="L.Dialog.ImportErrorTitle">Import error</sys:String>
+    <sys:String x:Key="L.Dialog.ExportErrorTitle">Export error</sys:String>
+    <sys:String x:Key="L.File.ImportTitle">Import presets</sys:String>
+    <sys:String x:Key="L.File.ExportTitle">Export presets</sys:String>
+    <sys:String x:Key="L.File.Filter">IP preset file (*.json)|*.json|All files (*.*)|*.*</sys:String>
+    <sys:String x:Key="L.File.ExportFilter">IP preset file (*.json)|*.json</sys:String>
+    <sys:String x:Key="L.File.ExportDefault">ip-presets.json</sys:String>
+
+    <!-- Validation -->
+    <sys:String x:Key="L.Val.NameEmpty">The preset name cannot be empty.</sys:String>
+    <sys:String x:Key="L.Val.IpInvalid">The IP address is not a valid IPv4 format.</sys:String>
+    <sys:String x:Key="L.Val.MaskInvalid">The subnet mask is not a valid IPv4 format.</sys:String>
+    <sys:String x:Key="L.Val.GatewayInvalid">The gateway is not a valid IPv4 format.</sys:String>
+    <sys:String x:Key="L.Val.PrefDnsInvalid">The preferred DNS is not a valid IPv4 format.</sys:String>
+    <sys:String x:Key="L.Val.AltDnsInvalid">The alternate DNS is not a valid IPv4 format.</sys:String>
+    <sys:String x:Key="L.Val.NoAdapter">No network adapter selected.</sys:String>
+
+    <!-- Network operations -->
+    <sys:String x:Key="L.Net.DhcpSet">Adapter “{0}” was set to DHCP.</sys:String>
+    <sys:String x:Key="L.Net.StaticSet">Adapter “{0}” configured: {1} / {2}.</sys:String>
+    <sys:String x:Key="L.Net.NoProcess">The netsh process could not be started.</sys:String>
+    <sys:String x:Key="L.Net.ExitCode">netsh exited with error code: {0}.</sys:String>
+    <sys:String x:Key="L.Net.Unexpected">Unexpected error while applying: {0}</sys:String>
+
+    <!-- App-level error -->
+    <sys:String x:Key="L.App.ErrorTitle">IP Changer — error</sys:String>
+    <sys:String x:Key="L.App.UnhandledError">An unexpected error occurred:
+
+{0}</sys:String>
+
+</ResourceDictionary>

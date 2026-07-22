@@ -22,7 +22,7 @@ public partial class PresetEditorWindow : Window
         var error = vm.Validate();
         if (error is not null)
         {
-            MessageBox.Show(this, error, "Érvénytelen adat", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(this, error, vm.InvalidTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 

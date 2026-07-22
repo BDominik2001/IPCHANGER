@@ -14,21 +14,35 @@ public sealed class MainViewModel : ObservableObject
     private readonly NetworkAdapterService _network;
     private readonly IDialogService _dialogs;
     private readonly IThemeService _theme;
+    private readonly ILocalizationService _loc;
 
     private IpPreset? _selectedPreset;
     private NetworkAdapterInfo? _selectedAdapter;
-    private string _statusMessage = "Készen áll.";
+    private string _statusMessage;
     private bool _statusIsError;
+    private bool _statusIsDefault = true;
+    private LanguageOption _selectedLanguage;
 
-    public MainViewModel(PresetStore store, NetworkAdapterService network, IDialogService dialogs, IThemeService theme)
+    public MainViewModel(PresetStore store, NetworkAdapterService network, IDialogService dialogs,
+        IThemeService theme, ILocalizationService loc)
     {
         _store = store;
         _network = network;
         _dialogs = dialogs;
         _theme = theme;
+        _loc = loc;
+
+        _statusMessage = loc.Get("L.Status.Ready");
 
         Presets = new ObservableCollection<IpPreset>(_store.Load());
         Adapters = new ObservableCollection<NetworkAdapterInfo>();
+
+        Languages = new[]
+        {
+            new LanguageOption(AppLanguage.Hungarian, "Magyar"),
+            new LanguageOption(AppLanguage.English, "English"),
+        };
+        _selectedLanguage = Languages.FirstOrDefault(l => l.Value == loc.Current) ?? Languages[0];
 
         ToggleThemeCommand = new RelayCommand(ToggleTheme);
         AddPresetCommand = new RelayCommand(AddPreset);
@@ -85,7 +99,29 @@ public sealed class MainViewModel : ObservableObject
     public bool IsDarkTheme => _theme.Current == AppTheme.Dark;
 
     /// <summary>A téma-váltó gomb felirata (arra a témára utal, amelyikre váltani lehet).</summary>
-    public string ThemeToggleLabel => IsDarkTheme ? "☀  Világos" : "🌙  Sötét";
+    public string ThemeToggleLabel => _loc.Get(IsDarkTheme ? "L.Theme.Light" : "L.Theme.Dark");
+
+    /// <summary>A választható nyelvek.</summary>
+    public IReadOnlyList<LanguageOption> Languages { get; }
+
+    /// <summary>Az aktuálisan kiválasztott nyelv. Beállításkor átváltja az egész felületet.</summary>
+    public LanguageOption SelectedLanguage
+    {
+        get => _selectedLanguage;
+        set
+        {
+            if (value is null || !SetProperty(ref _selectedLanguage, value))
+                return;
+
+            _loc.Apply(value.Value);
+
+            // A kódból származó, kötött szövegek frissítése (a XAML DynamicResource-ok
+            // maguktól frissülnek). A státuszsor csak akkor, ha még az alap üzenet áll.
+            OnPropertyChanged(nameof(ThemeToggleLabel));
+            if (_statusIsDefault)
+                StatusMessage = _loc.Get("L.Status.Ready");
+        }
+    }
 
     public RelayCommand ToggleThemeCommand { get; }
     public RelayCommand AddPresetCommand { get; }
@@ -106,7 +142,8 @@ public sealed class MainViewModel : ObservableObject
 
     private void AddPreset()
     {
-        var editorVm = new PresetEditorViewModel(new IpPreset(), isNew: true);
+        var editorVm = new PresetEditorViewModel(
+            new IpPreset { Name = _loc.Get("L.Editor.NewTitle") }, isNew: true, _loc);
         if (!_dialogs.ShowPresetEditor(editorVm))
             return;
 
@@ -114,7 +151,7 @@ public sealed class MainViewModel : ObservableObject
         Presets.Add(created);
         SelectedPreset = created;
         PersistPresets();
-        SetStatus($"Preset létrehozva: {created.Name}", isError: false);
+        SetStatus(_loc.Format("L.Status.Created", created.Name), isError: false);
     }
 
     private void EditPreset()
@@ -122,7 +159,7 @@ public sealed class MainViewModel : ObservableObject
         if (SelectedPreset is null)
             return;
 
-        var editorVm = new PresetEditorViewModel(SelectedPreset, isNew: false);
+        var editorVm = new PresetEditorViewModel(SelectedPreset, isNew: false, _loc);
         if (!_dialogs.ShowPresetEditor(editorVm))
             return;
 
@@ -133,7 +170,7 @@ public sealed class MainViewModel : ObservableObject
         current.CopyValuesFrom(editorVm.GetResult());
 
         PersistPresets();
-        SetStatus($"Preset frissítve: {current.Name}", isError: false);
+        SetStatus(_loc.Format("L.Status.Updated", current.Name), isError: false);
     }
 
     private void DuplicatePreset()
@@ -143,11 +180,11 @@ public sealed class MainViewModel : ObservableObject
 
         var copy = SelectedPreset.Clone();
         copy.Id = Guid.NewGuid();
-        copy.Name = $"{SelectedPreset.Name} (másolat)";
+        copy.Name = $"{SelectedPreset.Name}{_loc.Get("L.Suffix.Copy")}";
         Presets.Add(copy);
         SelectedPreset = copy;
         PersistPresets();
-        SetStatus($"Preset duplikálva: {copy.Name}", isError: false);
+        SetStatus(_loc.Format("L.Status.Duplicated", copy.Name), isError: false);
     }
 
     private void DeletePreset()
@@ -155,14 +192,16 @@ public sealed class MainViewModel : ObservableObject
         if (SelectedPreset is null)
             return;
 
-        if (!_dialogs.Confirm($"Biztosan törlöd a(z) \"{SelectedPreset.Name}\" presetet?", "Törlés megerősítése"))
+        if (!_dialogs.Confirm(
+                _loc.Format("L.Dialog.DeleteConfirm", SelectedPreset.Name),
+                _loc.Get("L.Dialog.DeleteTitle")))
             return;
 
         var name = SelectedPreset.Name;
         Presets.Remove(SelectedPreset);
         SelectedPreset = Presets.FirstOrDefault();
         PersistPresets();
-        SetStatus($"Preset törölve: {name}", isError: false);
+        SetStatus(_loc.Format("L.Status.Deleted", name), isError: false);
     }
 
     private void ApplyPreset()
@@ -171,8 +210,8 @@ public sealed class MainViewModel : ObservableObject
             return;
 
         if (!_dialogs.Confirm(
-                $"A(z) \"{SelectedPreset.Name}\" preset alkalmazása a(z) \"{SelectedAdapter.Name}\" adapterre?",
-                "Alkalmazás megerősítése"))
+                _loc.Format("L.Dialog.ApplyConfirm", SelectedPreset.Name, SelectedAdapter.Name),
+                _loc.Get("L.Dialog.ApplyTitle")))
             return;
 
         var result = _network.ApplyPreset(SelectedAdapter.Name, SelectedPreset);
@@ -181,7 +220,7 @@ public sealed class MainViewModel : ObservableObject
         if (result.Success)
             RefreshAdapters();
         else
-            _dialogs.ShowMessage(result.Message, "Az alkalmazás sikertelen", isError: true);
+            _dialogs.ShowMessage(result.Message, _loc.Get("L.Dialog.ApplyFailedTitle"), isError: true);
     }
 
     private void RefreshAdapters()
@@ -199,8 +238,8 @@ public sealed class MainViewModel : ObservableObject
     private void Import()
     {
         var path = _dialogs.ShowOpenFileDialog(
-            "IP preset fájl (*.json)|*.json|Minden fájl (*.*)|*.*",
-            "Presetek importálása");
+            _loc.Get("L.File.Filter"),
+            _loc.Get("L.File.ImportTitle"));
         if (path is null)
             return;
 
@@ -209,7 +248,7 @@ public sealed class MainViewModel : ObservableObject
             var imported = _store.Import(path);
             if (imported.Count == 0)
             {
-                SetStatus("A fájl nem tartalmazott presetet.", isError: true);
+                SetStatus(_loc.Get("L.Status.ImportEmpty"), isError: true);
                 return;
             }
 
@@ -218,12 +257,12 @@ public sealed class MainViewModel : ObservableObject
 
             PersistPresets();
             ExportCommand.RaiseCanExecuteChanged();
-            SetStatus($"{imported.Count} preset importálva.", isError: false);
+            SetStatus(_loc.Format("L.Status.Imported", imported.Count), isError: false);
         }
         catch (Exception ex)
         {
-            SetStatus($"Az importálás sikertelen: {ex.Message}", isError: true);
-            _dialogs.ShowMessage(ex.Message, "Importálási hiba", isError: true);
+            SetStatus(_loc.Format("L.Status.ImportFailed", ex.Message), isError: true);
+            _dialogs.ShowMessage(ex.Message, _loc.Get("L.Dialog.ImportErrorTitle"), isError: true);
         }
     }
 
@@ -233,21 +272,21 @@ public sealed class MainViewModel : ObservableObject
             return;
 
         var path = _dialogs.ShowSaveFileDialog(
-            "IP preset fájl (*.json)|*.json",
-            "Presetek exportálása",
-            "ip-presetek.json");
+            _loc.Get("L.File.ExportFilter"),
+            _loc.Get("L.File.ExportTitle"),
+            _loc.Get("L.File.ExportDefault"));
         if (path is null)
             return;
 
         try
         {
             _store.Export(Presets, path);
-            SetStatus($"{Presets.Count} preset exportálva ide: {path}", isError: false);
+            SetStatus(_loc.Format("L.Status.Exported", Presets.Count, path), isError: false);
         }
         catch (Exception ex)
         {
-            SetStatus($"Az exportálás sikertelen: {ex.Message}", isError: true);
-            _dialogs.ShowMessage(ex.Message, "Exportálási hiba", isError: true);
+            SetStatus(_loc.Format("L.Status.ExportFailed", ex.Message), isError: true);
+            _dialogs.ShowMessage(ex.Message, _loc.Get("L.Dialog.ExportErrorTitle"), isError: true);
         }
     }
 
@@ -259,7 +298,7 @@ public sealed class MainViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            SetStatus($"A presetek mentése sikertelen: {ex.Message}", isError: true);
+            SetStatus(_loc.Format("L.Status.SaveFailed", ex.Message), isError: true);
         }
 
         ExportCommand.RaiseCanExecuteChanged();
@@ -275,6 +314,7 @@ public sealed class MainViewModel : ObservableObject
 
     private void SetStatus(string message, bool isError)
     {
+        _statusIsDefault = false;
         StatusMessage = message;
         StatusIsError = isError;
     }

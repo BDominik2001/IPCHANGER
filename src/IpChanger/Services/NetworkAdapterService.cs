@@ -13,6 +13,13 @@ namespace IpChanger.Services;
 /// </summary>
 public sealed class NetworkAdapterService
 {
+    private readonly ILocalizationService _loc;
+
+    public NetworkAdapterService(ILocalizationService loc)
+    {
+        _loc = loc;
+    }
+
     /// <summary>Elérhető, fizikai/virtuális hálózati adapterek listája (loopback és tunnel nélkül).</summary>
     public IReadOnlyList<NetworkAdapterInfo> GetAdapters()
     {
@@ -62,9 +69,9 @@ public sealed class NetworkAdapterService
     public OperationResult ApplyPreset(string adapterName, IpPreset preset)
     {
         if (string.IsNullOrWhiteSpace(adapterName))
-            return OperationResult.Fail("Nincs kiválasztva hálózati adapter.");
+            return OperationResult.Fail(_loc.Get("L.Val.NoAdapter"));
 
-        var validationError = PresetValidator.Validate(preset);
+        var validationError = PresetValidator.Validate(preset, _loc);
         if (validationError is not null)
             return OperationResult.Fail(validationError);
 
@@ -76,7 +83,7 @@ public sealed class NetworkAdapterService
         }
         catch (Exception ex)
         {
-            return OperationResult.Fail($"Váratlan hiba az alkalmazás közben: {ex.Message}");
+            return OperationResult.Fail(_loc.Format("L.Net.Unexpected", ex.Message));
         }
     }
 
@@ -92,7 +99,7 @@ public sealed class NetworkAdapterService
         if (!dnsResult.Success)
             return dnsResult;
 
-        return OperationResult.Ok($"A(z) \"{adapterName}\" adapter DHCP-re lett állítva.");
+        return OperationResult.Ok(_loc.Format("L.Net.DhcpSet", adapterName));
     }
 
     private OperationResult ApplyStatic(string adapterName, IpPreset preset)
@@ -131,11 +138,11 @@ public sealed class NetworkAdapterService
         }
 
         return OperationResult.Ok(
-            $"A(z) \"{adapterName}\" adapter beállítva: {preset.IpAddress} / {preset.SubnetMask}.");
+            _loc.Format("L.Net.StaticSet", adapterName, preset.IpAddress, preset.SubnetMask));
     }
 
     /// <summary>Egy netsh parancs futtatása ablak nélkül, a kimenet visszaadásával.</summary>
-    private static OperationResult RunNetsh(string arguments)
+    private OperationResult RunNetsh(string arguments)
     {
         var startInfo = new ProcessStartInfo
         {
@@ -149,7 +156,7 @@ public sealed class NetworkAdapterService
 
         using var process = Process.Start(startInfo);
         if (process is null)
-            return OperationResult.Fail("A netsh folyamat nem indítható el.");
+            return OperationResult.Fail(_loc.Get("L.Net.NoProcess"));
 
         var stdout = process.StandardOutput.ReadToEnd();
         var stderr = process.StandardError.ReadToEnd();
@@ -160,7 +167,7 @@ public sealed class NetworkAdapterService
 
         var message = !string.IsNullOrWhiteSpace(stderr) ? stderr.Trim()
             : !string.IsNullOrWhiteSpace(stdout) ? stdout.Trim()
-            : $"A netsh hibakóddal lépett ki: {process.ExitCode}.";
+            : _loc.Format("L.Net.ExitCode", process.ExitCode);
         return OperationResult.Fail(message);
     }
 }

@@ -25,32 +25,33 @@ public static class PresetValidator
     }
 
     /// <summary>
-    /// Ellenőrzi a presetet. Ha nem érvényes, egy hibaüzenetet ad vissza; siker esetén null.
+    /// Ellenőrzi a presetet. Ha nem érvényes, egy lokalizált hibaüzenetet ad vissza;
+    /// siker esetén null.
     /// </summary>
-    public static string? Validate(IpPreset preset)
+    public static string? Validate(IpPreset preset, ILocalizationService loc)
     {
         if (string.IsNullOrWhiteSpace(preset.Name))
-            return "A preset neve nem lehet üres.";
+            return loc.Get("L.Val.NameEmpty");
 
         if (preset.UseDhcp)
             return null; // DHCP esetén nincs statikus mező, amit ellenőrizni kellene.
 
         if (!IsValidIpv4(preset.IpAddress))
-            return "Az IP cím nem érvényes IPv4 formátumú.";
+            return loc.Get("L.Val.IpInvalid");
 
         if (!IsValidIpv4(preset.SubnetMask))
-            return "Az alhálózati maszk nem érvényes IPv4 formátumú.";
+            return loc.Get("L.Val.MaskInvalid");
 
         if (!string.IsNullOrWhiteSpace(preset.Gateway) && !IsValidIpv4(preset.Gateway))
-            return "Az átjáró (gateway) nem érvényes IPv4 formátumú.";
+            return loc.Get("L.Val.GatewayInvalid");
 
         if (!preset.DnsFromDhcp)
         {
             if (!string.IsNullOrWhiteSpace(preset.PreferredDns) && !IsValidIpv4(preset.PreferredDns))
-                return "Az elsődleges DNS nem érvényes IPv4 formátumú.";
+                return loc.Get("L.Val.PrefDnsInvalid");
 
             if (!string.IsNullOrWhiteSpace(preset.AlternateDns) && !IsValidIpv4(preset.AlternateDns))
-                return "A másodlagos DNS nem érvényes IPv4 formátumú.";
+                return loc.Get("L.Val.AltDnsInvalid");
         }
 
         return null;

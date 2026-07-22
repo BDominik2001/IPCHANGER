@@ -1,0 +1,104 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Fejléc / általános -->
+    <sys:String x:Key="L.Subtitle">Hálózati IP presetek kezelése és alkalmazása</sys:String>
+    <sys:String x:Key="L.AdminBadge">Rendszergazdai módban fut</sys:String>
+    <sys:String x:Key="L.Theme.Light">☀  Világos</sys:String>
+    <sys:String x:Key="L.Theme.Dark">🌙  Sötét</sys:String>
+    <sys:String x:Key="L.Theme.Tooltip">Váltás sötét és világos téma között</sys:String>
+    <sys:String x:Key="L.Language.Tooltip">Nyelv kiválasztása</sys:String>
+
+    <!-- Presetek panel -->
+    <sys:String x:Key="L.Presets">Presetek</sys:String>
+    <sys:String x:Key="L.New">＋ Új</sys:String>
+    <sys:String x:Key="L.Edit">Szerkesztés</sys:String>
+    <sys:String x:Key="L.Duplicate">Duplikálás</sys:String>
+    <sys:String x:Key="L.Delete">Törlés</sys:String>
+    <sys:String x:Key="L.Import">Import</sys:String>
+    <sys:String x:Key="L.Export">Export</sys:String>
+    <sys:String x:Key="L.Storage">Tárolás:</sys:String>
+
+    <!-- Részletek panel -->
+    <sys:String x:Key="L.SelectedPreset">Kiválasztott preset</sys:String>
+    <sys:String x:Key="L.IpAddress">IP cím</sys:String>
+    <sys:String x:Key="L.SubnetMask">Alhálózati maszk</sys:String>
+    <sys:String x:Key="L.Gateway">Átjáró</sys:String>
+    <sys:String x:Key="L.PreferredDns">Elsődleges DNS</sys:String>
+    <sys:String x:Key="L.AlternateDns">Másodlagos DNS</sys:String>
+    <sys:String x:Key="L.Notes">Megjegyzés</sys:String>
+    <sys:String x:Key="L.NoSelection">Válassz egy presetet a bal oldali listából.</sys:String>
+    <sys:String x:Key="L.Adapter">Hálózati adapter</sys:String>
+    <sys:String x:Key="L.Refresh">⟳ Frissítés</sys:String>
+    <sys:String x:Key="L.CurrentIp">Jelenlegi IP:</sys:String>
+    <sys:String x:Key="L.Apply">Preset alkalmazása</sys:String>
+
+    <!-- Szerkesztő ablak -->
+    <sys:String x:Key="L.Editor.NewTitle">Új preset</sys:String>
+    <sys:String x:Key="L.Editor.EditTitle">Preset szerkesztése</sys:String>
+    <sys:String x:Key="L.Editor.Name">Preset neve</sys:String>
+    <sys:String x:Key="L.Editor.Dhcp">IP cím automatikus lekérése (DHCP)</sys:String>
+    <sys:String x:Key="L.Editor.Ip">IP cím</sys:String>
+    <sys:String x:Key="L.Editor.Mask">Alhálózati maszk</sys:String>
+    <sys:String x:Key="L.Editor.Gateway">Alapértelmezett átjáró (opcionális)</sys:String>
+    <sys:String x:Key="L.Editor.DnsDhcp">DNS automatikus lekérése (DHCP)</sys:String>
+    <sys:String x:Key="L.Editor.PrefDns">Elsődleges DNS (opcionális)</sys:String>
+    <sys:String x:Key="L.Editor.AltDns">Másodlagos DNS (opcionális)</sys:String>
+    <sys:String x:Key="L.Editor.Notes">Megjegyzés</sys:String>
+    <sys:String x:Key="L.Editor.Cancel">Mégse</sys:String>
+    <sys:String x:Key="L.Editor.Save">Mentés</sys:String>
+    <sys:String x:Key="L.Editor.InvalidTitle">Érvénytelen adat</sys:String>
+
+    <!-- Státusz üzenetek -->
+    <sys:String x:Key="L.Status.Ready">Készen áll.</sys:String>
+    <sys:String x:Key="L.Status.Created">Preset létrehozva: {0}</sys:String>
+    <sys:String x:Key="L.Status.Updated">Preset frissítve: {0}</sys:String>
+    <sys:String x:Key="L.Status.Duplicated">Preset duplikálva: {0}</sys:String>
+    <sys:String x:Key="L.Status.Deleted">Preset törölve: {0}</sys:String>
+    <sys:String x:Key="L.Status.Imported">{0} preset importálva.</sys:String>
+    <sys:String x:Key="L.Status.ImportEmpty">A fájl nem tartalmazott presetet.</sys:String>
+    <sys:String x:Key="L.Status.ImportFailed">Az importálás sikertelen: {0}</sys:String>
+    <sys:String x:Key="L.Status.Exported">{0} preset exportálva ide: {1}</sys:String>
+    <sys:String x:Key="L.Status.ExportFailed">Az exportálás sikertelen: {0}</sys:String>
+    <sys:String x:Key="L.Status.SaveFailed">A presetek mentése sikertelen: {0}</sys:String>
+    <sys:String x:Key="L.Suffix.Copy"> (másolat)</sys:String>
+
+    <!-- Párbeszédek -->
+    <sys:String x:Key="L.Dialog.DeleteConfirm">Biztosan törlöd a(z) „{0}” presetet?</sys:String>
+    <sys:String x:Key="L.Dialog.DeleteTitle">Törlés megerősítése</sys:String>
+    <sys:String x:Key="L.Dialog.ApplyConfirm">A(z) „{0}” preset alkalmazása a(z) „{1}” adapterre?</sys:String>
+    <sys:String x:Key="L.Dialog.ApplyTitle">Alkalmazás megerősítése</sys:String>
+    <sys:String x:Key="L.Dialog.ApplyFailedTitle">Az alkalmazás sikertelen</sys:String>
+    <sys:String x:Key="L.Dialog.ImportErrorTitle">Importálási hiba</sys:String>
+    <sys:String x:Key="L.Dialog.ExportErrorTitle">Exportálási hiba</sys:String>
+    <sys:String x:Key="L.File.ImportTitle">Presetek importálása</sys:String>
+    <sys:String x:Key="L.File.ExportTitle">Presetek exportálása</sys:String>
+    <sys:String x:Key="L.File.Filter">IP preset fájl (*.json)|*.json|Minden fájl (*.*)|*.*</sys:String>
+    <sys:String x:Key="L.File.ExportFilter">IP preset fájl (*.json)|*.json</sys:String>
+    <sys:String x:Key="L.File.ExportDefault">ip-presetek.json</sys:String>
+
+    <!-- Validáció -->
+    <sys:String x:Key="L.Val.NameEmpty">A preset neve nem lehet üres.</sys:String>
+    <sys:String x:Key="L.Val.IpInvalid">Az IP cím nem érvényes IPv4 formátumú.</sys:String>
+    <sys:String x:Key="L.Val.MaskInvalid">Az alhálózati maszk nem érvényes IPv4 formátumú.</sys:String>
+    <sys:String x:Key="L.Val.GatewayInvalid">Az átjáró (gateway) nem érvényes IPv4 formátumú.</sys:String>
+    <sys:String x:Key="L.Val.PrefDnsInvalid">Az elsődleges DNS nem érvényes IPv4 formátumú.</sys:String>
+    <sys:String x:Key="L.Val.AltDnsInvalid">A másodlagos DNS nem érvényes IPv4 formátumú.</sys:String>
+    <sys:String x:Key="L.Val.NoAdapter">Nincs kiválasztva hálózati adapter.</sys:String>
+
+    <!-- Hálózati műveletek -->
+    <sys:String x:Key="L.Net.DhcpSet">A(z) „{0}” adapter DHCP-re lett állítva.</sys:String>
+    <sys:String x:Key="L.Net.StaticSet">A(z) „{0}” adapter beállítva: {1} / {2}.</sys:String>
+    <sys:String x:Key="L.Net.NoProcess">A netsh folyamat nem indítható el.</sys:String>
+    <sys:String x:Key="L.Net.ExitCode">A netsh hibakóddal lépett ki: {0}.</sys:String>
+    <sys:String x:Key="L.Net.Unexpected">Váratlan hiba az alkalmazás közben: {0}</sys:String>
+
+    <!-- App szintű hiba -->
+    <sys:String x:Key="L.App.ErrorTitle">IP Changer — hiba</sys:String>
+    <sys:String x:Key="L.App.UnhandledError">Váratlan hiba történt:
+
+{0}</sys:String>
+
+</ResourceDictionary>

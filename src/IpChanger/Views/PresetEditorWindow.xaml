@@ -22,39 +22,39 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Név -->
-                <Label Content="Preset neve" />
+                <Label Content="{DynamicResource L.Editor.Name}" />
                 <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,14" />
 
                 <!-- DHCP kapcsoló -->
-                <CheckBox Content="IP cím automatikus lekérése (DHCP)"
+                <CheckBox Content="{DynamicResource L.Editor.Dhcp}"
                           IsChecked="{Binding UseDhcp}" Margin="0,0,0,14" />
 
                 <!-- Statikus IP mezők -->
                 <StackPanel IsEnabled="{Binding IsStatic}">
-                    <Label Content="IP cím" />
+                    <Label Content="{DynamicResource L.Editor.Ip}" />
                     <TextBox Text="{Binding IpAddress, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" />
 
-                    <Label Content="Alhálózati maszk" />
+                    <Label Content="{DynamicResource L.Editor.Mask}" />
                     <TextBox Text="{Binding SubnetMask, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" />
 
-                    <Label Content="Alapértelmezett átjáró (opcionális)" />
+                    <Label Content="{DynamicResource L.Editor.Gateway}" />
                     <TextBox Text="{Binding Gateway, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,14" />
 
                     <!-- DNS kapcsoló -->
-                    <CheckBox Content="DNS automatikus lekérése (DHCP)"
+                    <CheckBox Content="{DynamicResource L.Editor.DnsDhcp}"
                               IsChecked="{Binding DnsFromDhcp}" Margin="0,0,0,12" />
 
                     <StackPanel IsEnabled="{Binding IsStaticDns}">
-                        <Label Content="Elsődleges DNS (opcionális)" />
+                        <Label Content="{DynamicResource L.Editor.PrefDns}" />
                         <TextBox Text="{Binding PreferredDns, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" />
 
-                        <Label Content="Másodlagos DNS (opcionális)" />
+                        <Label Content="{DynamicResource L.Editor.AltDns}" />
                         <TextBox Text="{Binding AlternateDns, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,14" />
                     </StackPanel>
                 </StackPanel>
 
                 <!-- Megjegyzés -->
-                <Label Content="Megjegyzés" />
+                <Label Content="{DynamicResource L.Editor.Notes}" />
                 <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
                          AcceptsReturn="True" TextWrapping="Wrap"
                          VerticalScrollBarVisibility="Auto"
@@ -64,8 +64,8 @@
 
         <!-- Gombok -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
-            <Button Content="Mégse" IsCancel="True" MinWidth="90" Margin="0,0,10,0" Click="OnCancel" />
-            <Button Content="Mentés" Style="{StaticResource AccentButton}" MinWidth="110"
+            <Button Content="{DynamicResource L.Editor.Cancel}" IsCancel="True" MinWidth="90" Margin="0,0,10,0" Click="OnCancel" />
+            <Button Content="{DynamicResource L.Editor.Save}" Style="{StaticResource AccentButton}" MinWidth="110"
                     IsDefault="True" Click="OnSave" />
         </StackPanel>
     </Grid>
