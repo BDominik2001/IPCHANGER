@@ -48,7 +48,7 @@
                 <ColumnDefinition Width="*" MinWidth="300" />
             </Grid.ColumnDefinitions>
 
-            <!-- ---- Bal oldal: preset lista ---- -->
+            <!-- Bal oldal: preset lista -->
             <Border Grid.Column="0" Style="{StaticResource Card}" Padding="14">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -103,7 +103,7 @@
                 </Grid>
             </Border>
 
-            <!-- ---- Jobb oldal: részletek + alkalmazás ---- -->
+            <!-- Jobb oldal: részletek + alkalmazás -->
             <Border Grid.Column="2" Style="{StaticResource Card}" Padding="18">
                 <Grid>
                     <Grid.RowDefinitions>
