@@ -256,18 +256,71 @@ public sealed class MainViewModel : ObservableObject
                 return;
             }
 
-            foreach (var preset in imported)
-                Presets.Add(preset);
+            // Áttekintő ablak: a felhasználó elemenként dönthet a névütközésekről.
+            var review = new ImportReviewViewModel(Presets, imported, _loc);
+            if (!_dialogs.ShowImportReview(review))
+                return; // megszakítva
+
+            int added = 0, overwritten = 0, skipped = 0;
+            foreach (var item in review.Incoming)
+            {
+                switch (item.ActionValue)
+                {
+                    case ImportAction.Skip:
+                        skipped++;
+                        break;
+
+                    case ImportAction.Add:
+                        Presets.Add(item.Preset);
+                        added++;
+                        break;
+
+                    case ImportAction.KeepBoth:
+                        item.Preset.Name = UniqueImportedName(item.Preset.Name);
+                        Presets.Add(item.Preset);
+                        added++;
+                        break;
+
+                    case ImportAction.Overwrite:
+                        var existing = Presets.FirstOrDefault(p => NameEquals(p.Name, item.Preset.Name));
+                        if (existing is not null)
+                        {
+                            existing.CopyValuesFrom(item.Preset);
+                            overwritten++;
+                        }
+                        else
+                        {
+                            Presets.Add(item.Preset);
+                            added++;
+                        }
+                        break;
+                }
+            }
 
             PersistPresets();
             ExportCommand.RaiseCanExecuteChanged();
-            SetStatus(_loc.Format("L.Status.Imported", imported.Count), isError: false);
+            SetStatus(_loc.Format("L.Status.ImportResult", added, overwritten, skipped), isError: false);
         }
         catch (Exception ex)
         {
             SetStatus(_loc.Format("L.Status.ImportFailed", ex.Message), isError: true);
             _dialogs.ShowMessage(ex.Message, _loc.Get("L.Dialog.ImportErrorTitle"), isError: true);
         }
+    }
+
+    /// <summary>Két preset-név egyezésének vizsgálata (kis/nagybetűre érzéketlen, szóközök levágva).</summary>
+    private static bool NameEquals(string? a, string? b)
+        => ImportReviewViewModel.Normalize(a) == ImportReviewViewModel.Normalize(b);
+
+    /// <summary>Egyedi név előállítása „mindkettő megtartása” esetén: „név (importált)”, „név (importált 2)”, …</summary>
+    private string UniqueImportedName(string baseName)
+    {
+        var word = _loc.Get("L.Import.RenameWord");
+        var candidate = $"{baseName} ({word})";
+        var n = 2;
+        while (Presets.Any(p => NameEquals(p.Name, candidate)))
+            candidate = $"{baseName} ({word} {n++})";
+        return candidate;
     }
 
     private void Export()

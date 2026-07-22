@@ -25,6 +25,16 @@ public sealed class DialogService : IDialogService
         return window.ShowDialog() == true;
     }
 
+    public bool ShowImportReview(ImportReviewViewModel viewModel)
+    {
+        var window = new ImportReviewWindow
+        {
+            DataContext = viewModel,
+            Owner = OwnerWindow,
+        };
+        return window.ShowDialog() == true;
+    }
+
     public void ShowAbout()
     {
         var window = new AboutWindow

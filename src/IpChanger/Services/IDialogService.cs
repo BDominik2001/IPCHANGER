@@ -11,6 +11,9 @@ public interface IDialogService
     /// <summary>Megnyitja a preset szerkesztőt. True, ha a felhasználó mentett.</summary>
     bool ShowPresetEditor(PresetEditorViewModel viewModel);
 
+    /// <summary>Megnyitja az importálás-áttekintő ablakot. True, ha a felhasználó az Importálást választotta.</summary>
+    bool ShowImportReview(ImportReviewViewModel viewModel);
+
     /// <summary>Fájl megnyitási párbeszéd (importhoz). Null, ha megszakították.</summary>
     string? ShowOpenFileDialog(string filter, string title);
 
