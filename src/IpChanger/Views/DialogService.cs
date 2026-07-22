@@ -25,6 +25,22 @@ public sealed class DialogService : IDialogService
         return window.ShowDialog() == true;
     }
 
+    public void ShowAbout()
+    {
+        var window = new AboutWindow
+        {
+            DataContext = new AboutViewModel(),
+            Owner = OwnerWindow,
+        };
+        window.ShowDialog();
+    }
+
+    public void ShowManual()
+    {
+        var window = new ManualWindow { Owner = OwnerWindow };
+        window.ShowDialog();
+    }
+
     public string? ShowOpenFileDialog(string filter, string title)
     {
         var dialog = new OpenFileDialog

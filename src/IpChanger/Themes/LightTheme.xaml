@@ -2,17 +2,17 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- Világos téma paletta -->
-    <SolidColorBrush x:Key="BackgroundBrush" Color="#FFF3F5F9" />
-    <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFFFFFF" />
-    <SolidColorBrush x:Key="SurfaceAltBrush" Color="#FFEDF0F5" />
-    <SolidColorBrush x:Key="BorderBrush" Color="#FFD5DAE3" />
-    <SolidColorBrush x:Key="AccentBrush" Color="#FF2F6FED" />
-    <SolidColorBrush x:Key="AccentHoverBrush" Color="#FF4C86F5" />
-    <SolidColorBrush x:Key="AccentPressedBrush" Color="#FF2559C9" />
-    <SolidColorBrush x:Key="TextBrush" Color="#FF1B1F2A" />
-    <SolidColorBrush x:Key="TextMutedBrush" Color="#FF636B7A" />
-    <SolidColorBrush x:Key="DangerBrush" Color="#FFD32F35" />
-    <SolidColorBrush x:Key="SuccessBrush" Color="#FF1F9D57" />
+    <!-- Világos téma – zöld akcentussal (paletta: #02ae6d, #01db7f, #8b8a89, #fcfcfc) -->
+    <SolidColorBrush x:Key="BackgroundBrush" Color="#FFEEF2F0" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="SurfaceAltBrush" Color="#FFE7ECE9" />
+    <SolidColorBrush x:Key="BorderBrush" Color="#FFD3DBD7" />
+    <SolidColorBrush x:Key="AccentBrush" Color="#FF029A5F" />
+    <SolidColorBrush x:Key="AccentHoverBrush" Color="#FF02AE6D" />
+    <SolidColorBrush x:Key="AccentPressedBrush" Color="#FF017A4C" />
+    <SolidColorBrush x:Key="TextBrush" Color="#FF13201A" />
+    <SolidColorBrush x:Key="TextMutedBrush" Color="#FF5C6862" />
+    <SolidColorBrush x:Key="DangerBrush" Color="#FFC5342C" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="#FF029A5F" />
 
 </ResourceDictionary>
