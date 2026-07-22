@@ -4,6 +4,7 @@
         xmlns:conv="clr-namespace:IpChanger.Converters"
         Title="IP Changer" Height="640" Width="1000"
         MinHeight="520" MinWidth="820"
+        Icon="/Assets/app.ico"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource BackgroundBrush}"
         FontFamily="Segoe UI">

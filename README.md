@@ -1,5 +1,7 @@
 # IP Changer
 
+<img src="docs/icon.png" alt="IP Changer ikon" width="96" align="right" />
+
 Modern, letisztult **Windows asztali alkalmazás** (C# / WPF, .NET 8) hálózati
 **IP presetek** tárolására és gyors alkalmazására. Egy preset kiválasztása után
 egyetlen kattintással átállítja a kiválasztott hálózati adapter IPv4
@@ -72,6 +74,7 @@ Ugyanez a JSON formátum használatos importáláshoz és exportáláshoz is.
 IpChanger.sln
 src/IpChanger/
 ├─ app.manifest              # UAC: requireAdministrator
+├─ Assets/app.ico            # alkalmazás- és ablakikon (több méret)
 ├─ App.xaml(.cs)             # belépési pont, függőségek összeállítása
 ├─ Models/                   # IpPreset, NetworkAdapterInfo, OperationResult
 ├─ Services/                 # PresetStore, NetworkAdapterService, validáció, dialógusok
