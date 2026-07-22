@@ -5,6 +5,10 @@ obj/
 [Rr]elease/
 x64/
 x86/
+
+# Publish / telepítő kimenetek
+publish/
+dist/
 *.user
 *.suo
 *.userosscache

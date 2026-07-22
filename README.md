@@ -36,11 +36,21 @@ dotnet build IpChanger.sln -c Release
 dotnet run --project src/IpChanger/IpChanger.csproj -c Release
 ```
 
+## Telepítő készítése
+
+Terjeszthető `setup.exe` (más gépekre telepíthető) készítéséhez lásd a
+[docs/PACKAGING.md](docs/PACKAGING.md) útmutatót. Röviden:
+
+```powershell
+cd installer
+./build-installer.ps1 -Version 1.0.0   # publish + Inno Setup → dist\IpChanger-Setup-1.0.0.exe
+```
+
 Önálló, telepítés nélküli (single-file) kiadás készítése:
 
 ```powershell
 dotnet publish src/IpChanger/IpChanger.csproj -c Release -r win-x64 ^
-  --self-contained false -p:PublishSingleFile=true -o publish
+  --self-contained true -p:PublishSingleFile=true -o publish
 ```
 
 > Megjegyzés: mivel a projekt `requireAdministrator` szintre van állítva, a
