@@ -1,0 +1,146 @@
+<Window x:Class="IpChanger.Views.ImportReviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource L.Import.Title}"
+        Height="600" Width="800"
+        MinHeight="460" MinWidth="640"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Assets/app.ico"
+        Background="{DynamicResource BackgroundBrush}"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+
+        <!-- Bal oldali (jelenlegi) preset sablon -->
+        <DataTemplate x:Key="ExistingTemplate">
+            <Border Background="{DynamicResource SurfaceAltBrush}" CornerRadius="6"
+                    Padding="10,8" Margin="0,0,0,6">
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="8" Height="8" VerticalAlignment="Center" Margin="0,0,8,0"
+                             Fill="{DynamicResource WarningBrush}"
+                             ToolTip="{DynamicResource L.Import.MatchHint}"
+                             Visibility="{Binding HasIncomingMatch, Converter={StaticResource BoolToVis}}" />
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" FontFamily="Segoe UI Semibold" />
+                        <TextBlock Text="{Binding Summary}" Style="{StaticResource CaptionText}" Margin="0,2,0,0" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+
+        <!-- Jobb oldali (importálandó) preset sablon -->
+        <DataTemplate x:Key="IncomingTemplate">
+            <Border Background="{DynamicResource SurfaceAltBrush}" CornerRadius="6"
+                    Margin="0,0,0,8" ClipToBounds="True">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Színes művelet-sáv (a kiválasztott művelet szerint) -->
+                    <Rectangle x:Name="bar" Grid.Column="0" Fill="{DynamicResource SuccessBrush}" />
+
+                    <StackPanel Grid.Column="1" Margin="12,10">
+                        <DockPanel LastChildFill="False">
+                            <TextBlock Text="{Binding Name}" FontFamily="Segoe UI Semibold"
+                                       FontSize="14" DockPanel.Dock="Left" VerticalAlignment="Center" />
+                            <Border DockPanel.Dock="Right" Background="{DynamicResource WarningBrush}"
+                                    CornerRadius="4" Padding="6,2"
+                                    Visibility="{Binding IsConflict, Converter={StaticResource BoolToVis}}">
+                                <TextBlock Text="{DynamicResource L.Import.Conflict}" FontSize="11"
+                                           Foreground="#FF1B1B1B" FontFamily="Segoe UI Semibold" />
+                            </Border>
+                        </DockPanel>
+                        <TextBlock Text="{Binding Summary}" Style="{StaticResource CaptionText}" Margin="0,3,0,8" />
+                        <DockPanel>
+                            <TextBlock Text="{DynamicResource L.Import.ActionLabel}" Style="{StaticResource CaptionText}"
+                                       VerticalAlignment="Center" DockPanel.Dock="Left" Margin="0,0,8,0" />
+                            <ComboBox ItemsSource="{Binding AvailableActions}"
+                                      SelectedItem="{Binding SelectedAction}"
+                                      DisplayMemberPath="Display" Height="32" />
+                        </DockPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding ActionValue}" Value="Overwrite">
+                    <Setter TargetName="bar" Property="Fill" Value="{DynamicResource DangerBrush}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ActionValue}" Value="KeepBoth">
+                    <Setter TargetName="bar" Property="Fill" Value="{DynamicResource WarningBrush}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ActionValue}" Value="Skip">
+                    <Setter TargetName="bar" Property="Fill" Value="{DynamicResource TextMutedBrush}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{DynamicResource L.Import.Title}"
+                   Style="{StaticResource HeaderText}" />
+        <TextBlock Grid.Row="1" Text="{Binding SummaryText}" Style="{StaticResource CaptionText}"
+                   Margin="0,4,0,14" />
+
+        <!-- Két oszlop: bal = jelenlegi, jobb = importálandó -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource Card}" Padding="14">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{DynamicResource L.Import.Existing}"
+                               Style="{StaticResource HeaderText}" FontSize="15" Margin="0,0,0,10" />
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <ItemsControl ItemsSource="{Binding Existing}"
+                                          ItemTemplate="{StaticResource ExistingTemplate}" />
+                            <TextBlock Text="{DynamicResource L.Import.NoExisting}"
+                                       Style="{StaticResource CaptionText}"
+                                       Visibility="{Binding HasNoExisting, Converter={StaticResource BoolToVis}}" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource Card}" Padding="14">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{DynamicResource L.Import.Incoming}"
+                               Style="{StaticResource HeaderText}" FontSize="15" Margin="0,0,0,10" />
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Incoming}"
+                                      ItemTemplate="{StaticResource IncomingTemplate}" />
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Gombok -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Content="{DynamicResource L.Import.Cancel}" IsCancel="True"
+                    MinWidth="100" Margin="0,0,10,0" Click="OnCancel" />
+            <Button Content="{DynamicResource L.Import.Confirm}" Style="{StaticResource AccentButton}"
+                    MinWidth="130" IsDefault="True" Click="OnImport" />
+        </StackPanel>
+    </Grid>
+</Window>

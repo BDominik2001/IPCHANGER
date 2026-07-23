@@ -13,6 +13,10 @@ konfigurációját.
 - ✏️ **Szerkeszthető presetek** – létrehozás, módosítás, duplikálás, törlés.
 - 📝 **Megjegyzések** – minden presethez szabad szöveges megjegyzés fűzhető.
 - 📤 **Import / Export** – presetek JSON fájlba mentése és onnan visszatöltése.
+- 🔍 **Import-áttekintő** – importáláskor grafikus összevetés (jelenlegi vs. importálandó),
+  névütközés-jelzéssel és elemenkénti döntéssel: felülírás / mindkettő megtartása / kihagyás.
+- ✅ **Export-választó** – exportáláskor elemenként kijelölhető, mely presetek kerüljenek a fájlba
+  (egy gyorsgombbal az összes ki-/bejelölhető).
 - 🔀 **Adapterválasztás** – az elérhető hálózati adapterek listája, aktuális IP-vel.
 - ⚡ **Egy kattintásos alkalmazás** – a `netsh` segítségével állítja be az IP-t.
 - 🛡️ **Automatikus rendszergazdai jog** – indításkor UAC-kérés (a manifest miatt),

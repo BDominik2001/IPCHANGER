@@ -134,8 +134,8 @@ In the editor you can enter a static IP address, subnet mask, gateway and DNS, o
 The status bar shows the result and the adapter’s current IP address is refreshed.</sys:String>
 
     <sys:String x:Key="L.Manual.S3Head">3. Importing and exporting presets</sys:String>
-    <sys:String x:Key="L.Manual.S3Body">• “Export” – save all presets to a JSON file (for backup or moving to another machine).
-• “Import” – load presets from a previously exported JSON file (imported presets are added to the existing ones).</sys:String>
+    <sys:String x:Key="L.Manual.S3Body">• “Export” – save presets to a JSON file (for backup or moving to another machine). During export a selection window appears where you can pick which presets to export individually, or select them all with a quick button.
+• “Import” – load presets from a previously exported JSON file. During import a review window appears: current presets on the left, incoming ones on the right. Name conflicts are highlighted, and for each item you can choose to overwrite the existing one, keep both (with a rename), or skip it.</sys:String>
 
     <sys:String x:Key="L.Manual.S4Head">4. Theme and language</sys:String>
     <sys:String x:Key="L.Manual.S4Body">In the header you can switch between dark and light theme, and between Hungarian and English. Your choices are remembered until the next launch.</sys:String>
@@ -146,5 +146,31 @@ The status bar shows the result and the adapter’s current IP address is refres
 • If an operation fails, the status bar and a message box inform you about the error.</sys:String>
 
     <sys:String x:Key="L.Manual.Close">Close</sys:String>
+
+    <!-- Import review -->
+    <sys:String x:Key="L.Import.Title">Review import</sys:String>
+    <sys:String x:Key="L.Import.Existing">Current presets</sys:String>
+    <sys:String x:Key="L.Import.Incoming">Presets to import</sys:String>
+    <sys:String x:Key="L.Import.Conflict">Conflict</sys:String>
+    <sys:String x:Key="L.Import.ActionLabel">Action:</sys:String>
+    <sys:String x:Key="L.Import.Confirm">Import</sys:String>
+    <sys:String x:Key="L.Import.Cancel">Cancel</sys:String>
+    <sys:String x:Key="L.Import.Summary">{0} to import • {1} name conflict(s)</sys:String>
+    <sys:String x:Key="L.Import.NoExisting">(no presets yet)</sys:String>
+    <sys:String x:Key="L.Import.MatchHint">An imported item shares this name</sys:String>
+    <sys:String x:Key="L.Import.Action.Add">Add</sys:String>
+    <sys:String x:Key="L.Import.Action.Overwrite">Overwrite</sys:String>
+    <sys:String x:Key="L.Import.Action.KeepBoth">Keep both</sys:String>
+    <sys:String x:Key="L.Import.Action.Skip">Skip</sys:String>
+    <sys:String x:Key="L.Import.RenameWord">imported</sys:String>
+    <sys:String x:Key="L.Status.ImportResult">Import done: {0} added, {1} overwritten, {2} skipped.</sys:String>
+
+    <!-- Export selection -->
+    <sys:String x:Key="L.Export.Title">Export presets</sys:String>
+    <sys:String x:Key="L.Export.SelectAll">Select all</sys:String>
+    <sys:String x:Key="L.Export.DeselectAll">Clear selection</sys:String>
+    <sys:String x:Key="L.Export.Selected">{0} selected</sys:String>
+    <sys:String x:Key="L.Export.Confirm">Export</sys:String>
+    <sys:String x:Key="L.Export.Cancel">Cancel</sys:String>
 
 </ResourceDictionary>

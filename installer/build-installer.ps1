@@ -17,7 +17,7 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$Version = "1.1.0",
+    [string]$Version = "1.3.0",
     [string]$Runtime = "win-x64",
     [string]$Configuration = "Release"
 )
